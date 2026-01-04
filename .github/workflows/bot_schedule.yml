@@ -1,0 +1,51 @@
+name: Sports Prediction Bot
+
+on:
+  schedule:
+    # Run every 4 hours
+    - cron: '0 */4 * * *'
+  # Allow manual trigger from GitHub Actions tab
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    
+    # Permission to commit back to the repo
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Sports Prediction Bots (Predict.fun & Polymarket)
+        run: node index.mjs
+        env:
+          PREDICT_FUN_API_KEY: ${{ secrets.PREDICT_FUN_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+
+      - name: Commit and push changes (State Persistence)
+        run: |
+          git config --global user.name 'GitHub Actions Bot'
+          git config --global user.email 'actions@github.com'
+          
+          # Check if there are changes to commit
+          if [[ -n $(git status --porcelain analyzed_markets.json) ]]; then
+            git add analyzed_markets.json
+            git commit -m "Update analyzed markets state [skip ci]"
+            git push
+          else
+            echo "No changes in analyzed_markets.json"
+          fi
