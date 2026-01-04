@@ -20,10 +20,9 @@ export const TelegramService = {
                 headers: { "content-type": "application/json" },
                 body: JSON.stringify({
                     chat_id: CONFIG.TELEGRAM_CHAT_ID,
-                    text: text,
-                    // 마크다운 문법(**굵게** 등)을 사용할 수 있게 설정합니다.
-                    parse_mode: "Markdown",
-                    // 링크 미리보기를 끕니다 (메시지가 너무 길어지는 것 방지)
+                    text: text.length > 4000 ? text.substring(0, 4000) + "..." : text,
+                    // 마크다운 파싱을 꺼서 특수문자 에러(HTTP 400)를 방지합니다.
+                    // parse_mode: "Markdown",
                     disable_web_page_preview: true
                 }),
             });

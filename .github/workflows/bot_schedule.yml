@@ -2,8 +2,8 @@ name: Sports Prediction Bot
 
 on:
   schedule:
-    # Run every 4 hours
-    - cron: '0 */4 * * *'
+    # Run every 30 minutes
+    - cron: '*/30 * * * *'
   # Allow manual trigger from GitHub Actions tab
   workflow_dispatch:
 

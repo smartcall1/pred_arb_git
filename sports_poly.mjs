@@ -184,10 +184,10 @@ ${sportTag} ${market.question} [vol : ${volStr}]
 POLYMARKET : ${polyStr}
 GEMINI     : ${aiLine}
 
-💡 **Analysis**
+💡 [ Analysis ]
 ${aiPred.reasoning}
 
-⚠️ **Risks**
+⚠️ [ Risks ]
 
 ${aiPred.risks}
 `;
