@@ -119,10 +119,10 @@ ${sportTag} ${market.question} [vol : ${volStr}]
 PREDICT : ${predMarketStr}
 GEMINI  : ${aiLine}
 
-💡 [ Analysis ] (분석 결과)
+💡 [ Analysis ]
 ${aiPred.reasoning}
 
-⚠️ [ Risks ] (주의할 점)
+⚠️ [ Risks ]
 ${aiPred.risks}
 `;
             log(`${market.question}에 대한 알림을 전송합니다.`);

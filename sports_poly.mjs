@@ -13,7 +13,7 @@ process.on('unhandledRejection', (reason, p) => {
 
 const MIN_VOLUME_NBA = 100000;
 const MIN_VOLUME_NFL = 20000;
-const MAX_VOLUME = 1000000; // 1M USD limit (User request to exclude M unit markets)
+const MAX_VOLUME = 2000000; // 2M USD limit (User request to exclude M unit markets)
 const CHECK_INTERVAL_MS = 15 * 60 * 1000; // 15 minutes
 
 // Analyzed markets memory
@@ -188,7 +188,6 @@ GEMINI     : ${aiLine}
 ${aiPred.reasoning}
 
 ⚠️ [ Risks ]
-
 ${aiPred.risks}
 `;
             log(`Sending alert for ${market.question}`);
